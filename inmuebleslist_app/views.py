@@ -1,4 +1,4 @@
-from django.shortcuts import render
+""" from django.shortcuts import render
 from inmuebleslist_app.models import Inmueble
 from django.http import JsonResponse
 
@@ -8,7 +8,6 @@ from django.http import JsonResponse
 def inmueble_list(request):
     
     inmuebles = Inmueble.objects.all()    
-    
     data = { 'inmuebles' : list( inmuebles.values() ) }
     
     return JsonResponse(data)
@@ -26,4 +25,4 @@ def inmueble_detalle(request, pk):
         'description' : inmueble.description
     }
     
-    return JsonResponse(data)
+    return JsonResponse(data) """
