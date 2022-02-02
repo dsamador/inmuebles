@@ -19,7 +19,7 @@ class Inmueble(models.Model):
     empresa     = models.ForeignKey(
                     Empresa, 
                     on_delete=models.CASCADE, 
-                    related_name="InmuebleEmpresa")
+                    related_name="inmueblelist")
     creado      = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

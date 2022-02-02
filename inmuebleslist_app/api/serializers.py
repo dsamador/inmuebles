@@ -3,20 +3,36 @@ from inmuebleslist_app.models import Inmueble, Empresa
 
 
 #clases
-
-
-class EmpresaSerializer(serializers.ModelSerializer):
-   class Meta:
-       model = Empresa 
-       fields = "__all__"
-
-
 class InmuebleSerializer(serializers.ModelSerializer):        
     class Meta:
         model = Inmueble
         fields = "__all__"        
         #fields = ['pais','active','direccion','description']
         #exclude = ['id']
+        
+        
+class EmpresaSerializer(serializers.ModelSerializer):
+    #con esto pedimos todos los registros de Inmuebles por empresa
+    #inmueblelist = InmuebleSerializer(many = True, read_only=True)
+    
+    #Como el anterior pero toma solo el dato de la funcion str
+    #inmueblelist = serializers.StringRelatedField(many= True)
+    
+    #Devuelve los id de los inmubles que tiene la empresa
+    #inmueblelist = serializers.PrimaryKeyRelatedField(many = True, read_only=True)
+    
+    #con esto devolvemos el endpoint de cada inmueble
+    inmueblelist = serializers.HyperlinkedRelatedField(
+        many = True, 
+        read_only = True,
+        view_name = 'inmueble-detalle'#nombre de la url en el urls.py
+        )
+    
+    class Meta:
+        model = Empresa 
+        fields = "__all__"
+
+        
         
     
     #Campo calculado, no viene del modelo
