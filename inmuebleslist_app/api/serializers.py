@@ -1,35 +1,42 @@
 from rest_framework import serializers
-from inmuebleslist_app.models import Inmueble
+from inmuebleslist_app.models import Inmueble, Empresa
 
 
 #clases
 
-class InmuebleSerializer(serializers.ModelSerializer):
-    
-    #Campo calculado, no viene del modelo
-    longitud_direccion = serializers.SerializerMethodField()
-    
+
+class EmpresaSerializer(serializers.ModelSerializer):
+   class Meta:
+       model = Empresa 
+       fields = "__all__"
+
+
+class InmuebleSerializer(serializers.ModelSerializer):        
     class Meta:
         model = Inmueble
         fields = "__all__"        
         #fields = ['pais','active','direccion','description']
         #exclude = ['id']
         
-    def get_longitud_direccion(self, object):
-        cantidad_caracteres = len(object.direccion)
-        return cantidad_caracteres
+    
+    #Campo calculado, no viene del modelo
+    #longitud_direccion = serializers.SerializerMethodField()
         
-    def validate(self, data):
-        if data['direccion'] == data['pais']:
-            raise serializers.ValidationError("La direccion y el pais deben ser diferentes")
-        else:
-            data
+    # def get_longitud_direccion(self, object):
+    #     cantidad_caracteres = len(object.direccion)
+    #     return cantidad_caracteres
+        
+    # def validate(self, data):
+    #     if data['direccion'] == data['pais']:
+    #         raise serializers.ValidationError("La direccion y el pais deben ser diferentes")
+    #     else:
+    #         data
 
-    def validate_imagen(self, data):
-        if len(data) < 2:
-            raise serializers.ValidationError("La url de la imagen es demasiado corta")
-        else:
-            data
+    # def validate_imagen(self, data):
+    #     if len(data) < 2:
+    #         raise serializers.ValidationError("La url de la imagen es demasiado corta")
+    #     else:
+    #         data
 
 
 # def column_longitud(value):

@@ -3,10 +3,31 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 
-from inmuebleslist_app.models import Inmueble
-from inmuebleslist_app.api.serializers import InmuebleSerializer
+from inmuebleslist_app.models import (
+    Inmueble, Empresa
+)
+
+from inmuebleslist_app.api.serializers import (
+    InmuebleSerializer, EmpresaSerializer
+)
 
 
+class EmpresaAV(APIView):
+    
+    def get(self, request):
+        empresas = Empresa.objects.all()
+        serializer = EmpresaSerializer(empresas, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        #data que hay que convertir a un formato python
+        serializer = EmpresaSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+            
 
 class InmuebleListAV(APIView):
     
@@ -48,14 +69,14 @@ class InmuebleDetalleAV(APIView):
         else:
             return Response(serializer.errors, status = status.HTTP_404_NOT_FOUND)
         
-        def delete(self, request, pk):
-            try:
-                inmueble = Inmueble.objects.get(pk = pk)
-            except Inmueble.DoesNotExist:
-                return Response( {'error': 'Inmueble no encontrado'}, status = status.HTTP_404_NOT_FOUND)
-            
-            inmueble.delete()
-            return Response(status = status.HTTP_204_NO_CONTENT)
+    def delete(self, request, pk):
+        try:
+            inmueble = Inmueble.objects.get(pk = pk)
+        except Inmueble.DoesNotExist:
+            return Response( {'error': 'Inmueble no encontrado'}, status = status.HTTP_404_NOT_FOUND)
+        
+        inmueble.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)
 
 #Funciones
 
