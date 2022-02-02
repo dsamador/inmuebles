@@ -21,7 +21,7 @@ class InmuebleListAV(APIView):
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.error, status = status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
 
 
 class InmuebleDetalleAV(APIView):
