@@ -6,11 +6,18 @@ from inmuebleslist_app.models import Inmueble
 
 class InmuebleSerializer(serializers.ModelSerializer):
     
+    #Campo calculado, no viene del modelo
+    longitud_direccion = serializers.SerializerMethodField()
+    
     class Meta:
         model = Inmueble
         fields = "__all__"        
         #fields = ['pais','active','direccion','description']
         #exclude = ['id']
+        
+    def get_longitud_direccion(self, object):
+        cantidad_caracteres = len(object.direccion)
+        return cantidad_caracteres
         
     def validate(self, data):
         if data['direccion'] == data['pais']:
