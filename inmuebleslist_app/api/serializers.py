@@ -11,9 +11,9 @@ class InmuebleSerializer(serializers.ModelSerializer):
         #exclude = ['id']
         
         
-class EmpresaSerializer(serializers.ModelSerializer):
+class EmpresaSerializer(serializers.HyperlinkedModelSerializer):
     #con esto pedimos todos los registros de Inmuebles por empresa
-    #inmueblelist = InmuebleSerializer(many = True, read_only=True)
+    inmueblelist = InmuebleSerializer(many = True, read_only=True)
     
     #Como el anterior pero toma solo el dato de la funcion str
     #inmueblelist = serializers.StringRelatedField(many= True)
@@ -22,11 +22,11 @@ class EmpresaSerializer(serializers.ModelSerializer):
     #inmueblelist = serializers.PrimaryKeyRelatedField(many = True, read_only=True)
     
     #con esto devolvemos el endpoint de cada inmueble
-    inmueblelist = serializers.HyperlinkedRelatedField(
-        many = True, 
-        read_only = True,
-        view_name = 'inmueble-detalle'#nombre de la url en el urls.py
-        )
+    # inmueblelist = serializers.HyperlinkedRelatedField(
+    #     many = True, 
+    #     read_only = True,
+    #     view_name = 'inmueble-detalle'#nombre de la url en el urls.py
+    #     )
     
     class Meta:
         model = Empresa 
