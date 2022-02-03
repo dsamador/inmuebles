@@ -1,9 +1,15 @@
 from rest_framework import serializers
-from inmuebleslist_app.models import Inmueble, Empresa
+from inmuebleslist_app.models import Inmueble, Empresa, Comentario
 
 
 #clases
-class InmuebleSerializer(serializers.ModelSerializer):        
+class ComentarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comentario
+        fields = "__all__"
+
+class InmuebleSerializer(serializers.ModelSerializer):    
+    comentarios = ComentarioSerializer(many=True, read_only=True)    
     class Meta:
         model = Inmueble
         fields = "__all__"        

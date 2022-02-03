@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator, MaxValueValidator
 # Create your models here.
 
 class Empresa(models.Model):
@@ -25,3 +25,15 @@ class Inmueble(models.Model):
     def __str__(self):
         return self.direccion
     
+
+class Comentario(models.Model):
+    calificacion  = models.PositiveIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
+    texto         = models.CharField(max_length=200, null=True)
+    inmueble      = models.ForeignKey(Inmueble, on_delete=models.CASCADE, related_name="comentarios")
+    activo        = models.BooleanField(default=True)
+    creado        = models.DateTimeField(auto_now_add=True)
+    actualizacion = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return "Calificacion: " + str(self.calificacion) + "; Casa: " + self.inmueble.direccion
+
