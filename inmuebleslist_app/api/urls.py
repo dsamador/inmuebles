@@ -8,6 +8,7 @@ from inmuebleslist_app.api.views import (
     EmpresaDetalleAV,
     ComentarioDetail,
     ComentarioList,
+    ComentarioCreate,
 )
 
 urlpatterns = [
@@ -17,6 +18,8 @@ urlpatterns = [
     path('empresa/', EmpresaAV.as_view(), name='empresa'),    
     path('empresa/<int:pk>', EmpresaDetalleAV.as_view(), name='empresa-detail'),    
     
-    path('inmueble/<int:pk>/comentario/', InmuebleDetalleAV.as_view(), name='comentario-list'),    
+    
+    path('inmueble/<int:pk>/comentario-create', ComentarioCreate.as_view(), name='comentario-create'),
+    path('inmueble/<int:pk>/comentario/', ComentarioList.as_view(), name='comentario-list'),    
     path('inmueble/comentario/<int:pk>', ComentarioDetail.as_view(), name='comentario-detail'),
 ]

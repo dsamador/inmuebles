@@ -12,23 +12,46 @@ from inmuebleslist_app.api.serializers import (
     InmuebleSerializer, EmpresaSerializer, ComentarioSerializer
 )
 
-class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-    queryset = Comentario.objects.all()
+class ComentarioCreate(generics.CreateAPIView):    
     serializer_class = ComentarioSerializer
     
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
+    def perform_create(self, serializer):
+        pk = self.kwargs.get('pk')
+        edificacion = Inmueble.objects.get(pk = pk)
+        serializer.save(inmueble = edificacion)
     
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-    
-    
-class ComentarioDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
-    queryset = Comentario.objects.all()
+
+class ComentarioList(generics.ListCreateAPIView):
+    #queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
     
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Comentario.objects.filter(inmueble = pk)
+        
+    
+class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Comentario.objects.all()
+    serializer_class = ComentarioSerializer
+
+
+# class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+#     queryset = Comentario.objects.all()
+#     serializer_class = ComentarioSerializer
+    
+#     def get(self, request, *args, **kwargs):
+#         return self.list(request, *args, **kwargs)
+    
+#     def post(self, request, *args, **kwargs):
+#         return self.create(request, *args, **kwargs)
+    
+    
+# class ComentarioDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
+#     queryset = Comentario.objects.all()
+#     serializer_class = ComentarioSerializer
+    
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
     
 
 class EmpresaAV(APIView):
