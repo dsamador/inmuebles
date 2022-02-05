@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
+from rest_framework import viewsets
+from django.shortcuts import get_object_or_404
 
 from inmuebleslist_app.models import (
     Inmueble, Empresa, Comentario
@@ -52,6 +54,19 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     
 #     def get(self, request, *args, **kwargs):
 #         return self.retrieve(request, *args, **kwargs)
+
+class EmpresaVS(viewsets.ViewSet):
+    #list viene de ViewSet, la estamos sobreescribiendo
+    def list(self, request):
+        queryset = Empresa.objects.all()
+        serializer = EmpresaSerializer(queryset, many = True)
+        return Response(serializer.data)
+    
+    def retrieve(self, request, pk = None):
+        queryset = Empresa.objects.all()
+        inmueblelist = get_object_or_404(queryset, pk = pk)
+        serializer = EmpresaSerializer(inmueblelist)
+        return Response(serializer.data)
     
 
 class EmpresaAV(APIView):

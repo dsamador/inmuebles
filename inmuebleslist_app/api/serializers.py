@@ -18,7 +18,7 @@ class InmuebleSerializer(serializers.ModelSerializer):
         #exclude = ['id']
         
         
-class EmpresaSerializer(serializers.HyperlinkedModelSerializer):
+class EmpresaSerializer(serializers.ModelSerializer):
     #con esto pedimos todos los registros de Inmuebles por empresa
     inmueblelist = InmuebleSerializer(many = True, read_only=True)
     
