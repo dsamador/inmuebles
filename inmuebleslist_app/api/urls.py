@@ -18,7 +18,7 @@ router = DefaultRouter()
 router.register('empresa', EmpresaVS, basename='empresa')
 
 urlpatterns = [
-    path('inmueble/list/', InmuebleListAV.as_view(), name='inmueble-list'),
+    path('inmueble/', InmuebleListAV.as_view(), name='inmueble-list'),
     path('inmueble/<int:pk>/', InmuebleDetalleAV.as_view(), name='inmueble-detail'),
     
     path('', include(router.urls)),
