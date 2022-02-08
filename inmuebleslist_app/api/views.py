@@ -1,12 +1,14 @@
-from rest_framework.response import Response
 #from rest_framework.decorators import api_view
+from django.shortcuts import get_object_or_404
+from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
 from rest_framework import viewsets
-from django.shortcuts import get_object_or_404
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
+
+from inmuebleslist_app.api.permissions import AdminOrReadonly
 
 from inmuebleslist_app.models import (
     Inmueble, Empresa, Comentario
@@ -70,7 +72,7 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class EmpresaVS(viewsets.ModelViewSet):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AdminOrReadonly]
     queryset = Empresa.objects.all()    
     serializer_class = EmpresaSerializer
     
