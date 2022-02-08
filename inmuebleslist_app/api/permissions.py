@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-class AdminOrReadonly(permissions.IsAdminUser):
+class AdminOrReadOnly(permissions.IsAdminUser):
     #esta funcion devuelve un bool siempre
     def has_permission(self, request, view):
         
@@ -9,3 +9,12 @@ class AdminOrReadonly(permissions.IsAdminUser):
         
         staff_permission = bool(request.user and request.user.is_staff)
         return staff_permission
+    
+
+#Si el comentario es mio lo puedo manipular, sino solo verlo
+class ComentarioUserOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        else:
+            return obj.comentario_user == request.user

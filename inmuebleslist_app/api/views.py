@@ -8,7 +8,10 @@ from rest_framework import viewsets
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 
-from inmuebleslist_app.api.permissions import AdminOrReadonly
+from inmuebleslist_app.api.permissions import (
+    AdminOrReadOnly,
+    ComentarioUserOrReadOnly
+)
 
 from inmuebleslist_app.models import (
     Inmueble, Empresa, Comentario
@@ -50,6 +53,7 @@ class ComentarioList(generics.ListCreateAPIView):
 class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
+    permission_classes=[ComentarioUserOrReadOnly]
 
 
 # class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
@@ -72,7 +76,7 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class EmpresaVS(viewsets.ModelViewSet):
-    permission_classes = [AdminOrReadonly]
+    permission_classes = [AdminOrReadOnly]
     queryset = Empresa.objects.all()    
     serializer_class = EmpresaSerializer
     
