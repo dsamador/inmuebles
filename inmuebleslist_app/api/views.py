@@ -21,6 +21,7 @@ from inmuebleslist_app.api.serializers import (
     InmuebleSerializer, EmpresaSerializer, ComentarioSerializer
 )
 
+
 class ComentarioCreate(generics.CreateAPIView):    
     serializer_class = ComentarioSerializer
     
@@ -38,7 +39,15 @@ class ComentarioCreate(generics.CreateAPIView):
         if comentario_queryset.exists():
             raise ValidationError("El usuario ya escribio un comentario para este inmueble")
         
-        serializer.save(inmueble = edificacion)
+        if edificacion.number_calificacion == 0:
+            edificacion.avg_calificacion = serializer.validated_data['calificacion']
+        else:
+            edificacion.avg_calificacion = (serializer.validated_data['calificacion']) + edificacion.avg_calificacion / 2
+        
+        edificacion.number_calificacion = edificacion.number_calificacion + 1
+        edificacion.save()
+        
+        serializer.save(inmueble = edificacion, comentario_user=user)
     
 
 class ComentarioList(generics.ListCreateAPIView):
