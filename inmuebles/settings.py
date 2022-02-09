@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     #apps propias
+    'user_app',
     'inmuebleslist_app',
 ]
 
