@@ -9,8 +9,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 
 from inmuebleslist_app.api.permissions import (
-    AdminOrReadOnly,
-    ComentarioUserOrReadOnly
+    IsAdminOrReadOnly,
+    IsComentario_UserOrReadOnly
 )
 
 from inmuebleslist_app.models import (
@@ -24,7 +24,7 @@ from inmuebleslist_app.api.serializers import (
 
 class ComentarioCreate(generics.CreateAPIView):    
     serializer_class = ComentarioSerializer
-    
+    permission_classes = [IsAuthenticated]
     #Con esto devolvemos el comentario creado al cliente
     def get_queryset(self):
         return Comentario.objects.all()
@@ -62,7 +62,7 @@ class ComentarioList(generics.ListCreateAPIView):
 class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comentario.objects.all()
     serializer_class = ComentarioSerializer
-    permission_classes=[ComentarioUserOrReadOnly]
+    permission_classes=[IsComentario_UserOrReadOnly]
 
 
 # class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
@@ -85,7 +85,7 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
 
 
 class EmpresaVS(viewsets.ModelViewSet):
-    permission_classes = [AdminOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly]
     queryset = Empresa.objects.all()    
     serializer_class = EmpresaSerializer
     
@@ -189,7 +189,8 @@ class EmpresaDetalleAV(APIView):
         return Response(status = status.HTTP_204_NO_CONTENT)  
 
 
-class InmuebleListAV(APIView):
+class InmuebleAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
     
     def get(self, request):
         inmuebles = Inmueble.objects.all()
@@ -206,6 +207,7 @@ class InmuebleListAV(APIView):
 
 
 class InmuebleDetalleAV(APIView):
+    permission_classes = [IsAdminOrReadOnly]
     
     def get(self, request, pk):
         try:
