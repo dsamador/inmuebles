@@ -143,6 +143,11 @@ REST_FRAMEWORK = {
     #     'rest_framework.authentication.BasicAuthentication',
     # ]
     'DEFAULT_AUTHENTICATION_CLASSES':[
-        'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ]
+}
+#generar nuevo token por cada token que ha caducado
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS':True
 }

@@ -25,6 +25,7 @@ from inmuebleslist_app.api.serializers import (
 class ComentarioCreate(generics.CreateAPIView):    
     serializer_class = ComentarioSerializer
     permission_classes = [IsAuthenticated]
+    
     #Con esto devolvemos el comentario creado al cliente
     def get_queryset(self):
         return Comentario.objects.all()
