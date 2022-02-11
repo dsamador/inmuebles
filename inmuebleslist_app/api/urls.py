@@ -12,6 +12,7 @@ from inmuebleslist_app.api.views import (
     ComentarioList,
     ComentarioCreate,
     EmpresaVS,
+    UsuarioComentario,
 )
 
 router = DefaultRouter()
@@ -28,4 +29,6 @@ urlpatterns = [
     path('inmueble/<int:pk>/comentario-create/', ComentarioCreate.as_view(), name='comentario-create'),
     path('inmueble/<int:pk>/comentario/', ComentarioList.as_view(), name='comentario-list'),    
     path('inmueble/comentario/<int:pk>/', ComentarioDetail.as_view(), name='comentario-detail'),
+    #path('inmueble/comentarios/<str:username>/', UsuarioComentario.as_view(), name='usuario-comentario-detail'),
+    path('inmueble/comentarios/', UsuarioComentario.as_view(), name='usuario-comentario-detail'),
 ]
