@@ -11,6 +11,7 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, Scoped
 from inmuebleslist_app.api.throttling import ComentarioCreateThrottle, ComentarioListThrottle
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from inmuebleslist_app.api.pagination import InmueblePagination
 
 from inmuebleslist_app.api.permissions import (
     IsAdminOrReadOnly,
@@ -217,6 +218,7 @@ class InmuebleList(generics.ListAPIView):
     serializer_class = InmuebleSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['direccion', 'empresa__nombre']
+    pagination_class = InmueblePagination
 
 
 class InmuebleAV(APIView):

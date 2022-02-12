@@ -138,6 +138,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     ]
 # }
 
+
 REST_FRAMEWORK = {
     #Con esto dejamos que desde un frontend se pueda hacer autenticacion
     #pero sólo manda el username y el password, no manda tokens 
@@ -157,11 +158,14 @@ REST_FRAMEWORK = {
         'user':'10/day',
         'comentario-create':'2/day',
         'comentario-list': '8/day',
-        'comentario-detail': '3/day',
-        
-    }
-        
+        'comentario-detail': '3/day',        
+    },
+    
+    # 'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE':2,        
 }
+
+
 #generar nuevo token por cada token que ha caducado
 SIMPLE_JWT = {
     'ROTATE_REFRESH_TOKENS':True,
