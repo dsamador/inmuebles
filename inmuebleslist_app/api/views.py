@@ -9,6 +9,8 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, ScopedRateThrottle
 from inmuebleslist_app.api.throttling import ComentarioCreateThrottle, ComentarioListThrottle
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 from inmuebleslist_app.api.permissions import (
     IsAdminOrReadOnly,
@@ -26,13 +28,10 @@ from inmuebleslist_app.api.serializers import (
 
 #Todos los comentarios del usuario
 class UsuarioComentario(generics.ListAPIView):
-    serializer_class = ComentarioSerializer
-    
-    # def get_queryset(self):
-    #     username =  self.kwargs['username']
-    #     return Comentario.objects.filter(comentario_user__username = username)
-    
+    serializer_class = ComentarioSerializer        
     def get_queryset(self):
+    #     username =  self.kwargs['username']
+    #     return Comentario.objects.filter(comentario_user__username = username)    
         username =  self.request.query_params.get('username', None)
         return Comentario.objects.filter(comentario_user__username = username)
         
@@ -73,6 +72,9 @@ class ComentarioList(generics.ListCreateAPIView):
     serializer_class = ComentarioSerializer
     #permission_classes = [IsAuthenticated]
     throttle_classes = [ComentarioListThrottle, AnonRateThrottle]
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = ['comentario_user__username', 'active']
+    
     def get_queryset(self):
         pk = self.kwargs['pk']
         return Comentario.objects.filter(inmueble = pk)
@@ -208,6 +210,13 @@ class EmpresaDetalleAV(APIView):
                 
         empresa.delete()
         return Response(status = status.HTTP_204_NO_CONTENT)  
+
+
+class InmuebleList(generics.ListAPIView):
+    queryset = Inmueble.objects.all()
+    serializer_class = InmuebleSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['direccion', 'empresa__nombre']
 
 
 class InmuebleAV(APIView):
