@@ -215,7 +215,7 @@ class EmpresaDetalleAV(APIView):
 class InmuebleList(generics.ListAPIView):
     queryset = Inmueble.objects.all()
     serializer_class = InmuebleSerializer
-    filter_backends = [filters.SearchFilter]
+    filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['direccion', 'empresa__nombre']
 
 
