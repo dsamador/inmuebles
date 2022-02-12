@@ -11,7 +11,7 @@ from rest_framework.throttling import UserRateThrottle, AnonRateThrottle, Scoped
 from inmuebleslist_app.api.throttling import ComentarioCreateThrottle, ComentarioListThrottle
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
-from inmuebleslist_app.api.pagination import InmueblePagination
+from inmuebleslist_app.api.pagination import InmueblePagination, InmuebleLOPagination
 
 from inmuebleslist_app.api.permissions import (
     IsAdminOrReadOnly,
@@ -89,77 +89,10 @@ class ComentarioDetail(generics.RetrieveUpdateDestroyAPIView):
     throttle_scope = 'comentario-detail'
 
 
-# class ComentarioList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
-#     queryset = Comentario.objects.all()
-#     serializer_class = ComentarioSerializer
-    
-#     def get(self, request, *args, **kwargs):
-#         return self.list(request, *args, **kwargs)
-    
-#     def post(self, request, *args, **kwargs):
-#         return self.create(request, *args, **kwargs)
-    
-    
-# class ComentarioDetail(mixins.RetrieveModelMixin, generics.GenericAPIView):
-#     queryset = Comentario.objects.all()
-#     serializer_class = ComentarioSerializer
-    
-#     def get(self, request, *args, **kwargs):
-#         return self.retrieve(request, *args, **kwargs)
-
-
 class EmpresaVS(viewsets.ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
     queryset = Empresa.objects.all()    
     serializer_class = EmpresaSerializer
-    
-
-# class EmpresaVS(viewsets.ViewSet):
-#     #list viene de ViewSet, la estamos sobreescribiendo
-#     def list(self, request):
-#         queryset = Empresa.objects.all()
-#         serializer = EmpresaSerializer(queryset, many = True)
-#         return Response(serializer.data)
-    
-#     def retrieve(self, request, pk = None):
-#         queryset = Empresa.objects.all()
-#         inmueblelist = get_object_or_404(queryset, pk = pk)
-#         serializer = EmpresaSerializer(inmueblelist)
-#         return Response(serializer.data)
-    
-#     def create(slef, request):
-#         serializer = EmpresaSerializer(data = request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             Response(serializer.errors, status = 
-#                      status.HTTP_400_BAD_REQUEST)
-    
-#     def update(self, request, pk):
-#         try:
-#             empresa = Empresa.objects.get(pk=pk)
-#         except Empresa.DoesNotExist:
-#             return Response({'error':'Empresa no encontrada'},
-#                             status=status.HTTP_404_NOT_FOUND)
-            
-#         serializer =  EmpresaSerializer(empresa, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             Response(serializer.errors, status=
-#                      status.HTTP_400_BAD_REQUEST)
-            
-#     def destroy(self, request, pk):
-#         try:
-#             empresa = Empresa.objects.get(pk=pk)
-#         except Empresa.DoesNotExist:
-#             return Response({'error':'Empresa no encontrada'}, 
-#                             status=status.HTTP_404_NOT_FOUND)
-            
-#         empresa.delete()
-#         return Response(status=status.HTTP_204_NO_CONTENT)
     
 
 class EmpresaAV(APIView):
@@ -218,7 +151,7 @@ class InmuebleList(generics.ListAPIView):
     serializer_class = InmuebleSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['direccion', 'empresa__nombre']
-    pagination_class = InmueblePagination
+    pagination_class = InmuebleLOPagination
 
 
 class InmuebleAV(APIView):
