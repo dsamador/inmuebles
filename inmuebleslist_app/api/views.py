@@ -151,7 +151,7 @@ class InmuebleList(generics.ListAPIView):
     serializer_class = InmuebleSerializer
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['direccion', 'empresa__nombre']
-    pagination_class = InmuebleLOPagination
+    pagination_class = InmueblePagination
 
 
 class InmuebleAV(APIView):
