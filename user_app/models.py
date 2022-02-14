@@ -7,12 +7,6 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 
-# Create your models here.
-#crea un token nuevo por cada autenticacion con username y password
-# @receiver(post_save, sender = settings.AUTH_USER_MODEL)
-# def create_auth_token(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         Token.objects.create(user=instance)
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, password=None):
@@ -48,16 +42,16 @@ class MyAccountManager(BaseUserManager):
         
 
 class Account(AbstractBaseUser):
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(max_length=100, unique=True)
-    phone_number = models.CharField(max_length=50)
-    date_joined = models.DateTimeField(auto_now_add=True)
-    last_login = models.DateTimeField(auto_now_add=True)
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    first_name    = models.CharField(max_length=50)
+    last_name     = models.CharField(max_length=50)
+    username      = models.CharField(max_length=50, unique=True)
+    email         = models.EmailField(max_length=100, unique=True)
+    phone_number  = models.CharField(max_length=50)
+    date_joined   = models.DateTimeField(auto_now_add=True)
+    last_login    = models.DateTimeField(auto_now_add=True)
+    is_admin      = models.BooleanField(default=False)
+    is_staff      = models.BooleanField(default=False)
+    is_active     = models.BooleanField(default=False)
     is_superadmin = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
