@@ -18,6 +18,8 @@ import {getStorage, provideStorage} from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '@src/environments/environment';
+import { IndicatorsModule } from './shared/indicators/indicators.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { environment } from '@src/environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule
+
     ,provideFirebaseApp(
       ()=>initializeApp(environment.firebase.config))
     ,provideFirestore(()=>getFirestore())
@@ -35,6 +38,9 @@ import { environment } from '@src/environments/environment';
     ,AngularFireStorageModule
     ,AngularFirestoreModule
     ,AngularFireAuthModule
+
+    ,IndicatorsModule
+    ,BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
