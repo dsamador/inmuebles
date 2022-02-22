@@ -20,6 +20,7 @@ import { AppComponent } from './app.component';
 import { environment } from '@src/environments/environment';
 import { IndicatorsModule } from './shared/indicators/indicators.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PopupsModule } from './shared/popups/popups.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
     ,IndicatorsModule
     ,BrowserAnimationsModule
+    ,PopupsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
