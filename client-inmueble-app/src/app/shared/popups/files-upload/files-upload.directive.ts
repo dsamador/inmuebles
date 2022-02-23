@@ -31,6 +31,7 @@ export class FilesUploadDirective {
     });
 
     dialogRef.afterClosed().subscribe(
+      //coleccion de urls de imagenes que se subieron
       result => this.changed.emit(result || null)
     );
   }
