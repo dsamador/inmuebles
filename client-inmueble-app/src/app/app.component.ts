@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NotificationService } from '@app/services';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,11 @@ export class AppComponent {
 
   title = 'client-inmueble-app';
 
-  constructor(private fs: AngularFirestore) {
-
-  }
+  constructor(
+    private fs: AngularFirestore
+    ,private notification: NotificationService
+    )
+  { }
 
   onToggleSpinner() : void {
     this.showSpinner = !this.showSpinner
@@ -22,7 +25,13 @@ export class AppComponent {
 
   onFilesChanged(urls: string | string []) : void {
     console.log('urls', urls);
-
   }
 
+  onSuccess(): void {
+    this.notification.success("El procedimiento fue exitoso");
+  }
+
+  onError(): void{
+    this.notification.error("Hubo errores en el proceso");
+  }
 }
