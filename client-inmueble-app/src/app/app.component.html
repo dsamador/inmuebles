@@ -1,7 +1,18 @@
-<button (click)="onToggleSpinner()">Toggle Spinner</button>
+<mat-sidenav-container>
+  <mat-sidenav #menu>
+    <p>texto sidenav</p>
+  </mat-sidenav>
 
-<app-spinner *ngIf="showSpinner"></app-spinner>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="menu.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>Inmuebles store</span>
+    </mat-toolbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
 
-<button appFilesUpload [multiple]="true" (changed)="onFilesChanged($event )">Subir Imagenes al servidor</button>
-<button (click)="onSuccess()">Mensaje de exito</button>
-<button (click)="onError()">Mensaje de error</button>
+</mat-sidenav-container>
