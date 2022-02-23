@@ -4,12 +4,7 @@
   </mat-sidenav>
 
   <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="menu.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Inmuebles store</span>
-    </mat-toolbar>
+    <app-header></app-header>
     <main>
       <router-outlet></router-outlet>
     </main>
