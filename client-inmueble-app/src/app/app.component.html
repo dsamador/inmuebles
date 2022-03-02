@@ -1,6 +1,8 @@
 <mat-sidenav-container>
   <mat-sidenav #menu>
-    <p>texto sidenav</p>
+    <app-menu-list (menuToggle)="menu.toggle()">
+
+    </app-menu-list>
   </mat-sidenav>
 
   <mat-sidenav-content>
