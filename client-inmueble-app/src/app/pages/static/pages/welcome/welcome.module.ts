@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeComponent } from './welcome.component';
 
+//Material
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,8 @@ import { WelcomeComponent } from './welcome.component';
   ],
   imports: [
     CommonModule,
-    WelcomeRoutingModule
+    WelcomeRoutingModule,
+    MatCardModule
   ]
 })
 export class WelcomeModule { }
