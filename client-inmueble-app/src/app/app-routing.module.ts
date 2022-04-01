@@ -5,12 +5,10 @@ const routes: Routes = [
   {
     path: ''
     ,children: [
-      {
-        path: 'static'
+      { path: 'static'
         ,loadChildren: () => import('./pages/static/static.module').then(m=>m.StaticModule)
       },
-      {
-        path:''
+      { path:''
         ,pathMatch: 'full'
         ,redirectTo: 'static/welcome'
       }
@@ -19,7 +17,7 @@ const routes: Routes = [
   {//ruta para ruta no encontrada
     path: '**'
     ,pathMatch: 'full'
-    ,redirectTo: 'static/welcome'
+    ,redirectTo: 'static/404'
   }
 ];
 
