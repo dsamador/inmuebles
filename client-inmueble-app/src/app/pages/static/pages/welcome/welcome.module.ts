@@ -6,6 +6,7 @@ import { WelcomeComponent } from './welcome.component';
 
 //Material
 import { MatCardModule } from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { MatCardModule } from '@angular/material/card';
   imports: [
     CommonModule,
     WelcomeRoutingModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule
   ]
 })
 export class WelcomeModule { }

@@ -10,5 +10,6 @@ export const environment = {
       messagingSenderId: "506500481558",
       appId: "1:506500481558:web:c114b2b7951e89b67feb37"
     }
-  }
+  },
+  url: 'https://django-inmuebles-stamta.herokuapp.com/'
 };
